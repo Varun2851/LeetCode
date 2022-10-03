@@ -2,17 +2,17 @@
 using namespace std;
 
 int solve(string s1 , string s2){
-	map<char,int>mp;
+	map<char,int>mp1;
 
 	for(int i = 0; i<s1.size(); i++){
-		mp.insert({s1[i],i}); // in this way we can store the index corresponding to char
+		mp1.insert({s1[i],i}); // in this way we can store the index corresponding to char
 	}
 	int last = 0;
 	int total = 0;
 
 	for(int i = 0; i<s2.size(); i++){
 		total += abs(mp[s2[i]] - last);
-		last = mp[s2[i]]; //this will give the index of the character 
+		last = mp1[s2[i]]; //this will give the index of the character 
 	}
 
 	return total;
