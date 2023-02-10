@@ -1,6 +1,9 @@
+// BinarySearchTree.cpp
 #include <iostream>
+#include <queue>
+#include <cmath>
 using namespace std;
-// 8 3 1 -1 -1 6 4 -1 -1 7 -1 -1 10 -1 14 13 -1 -1 -1
+
 class node {
 public:
 	int data;
@@ -9,28 +12,13 @@ public:
 	node(int d): data(d), left(NULL), right(NULL) {}
 };
 
-node* BuildTree() {
-	int data;
-	cin >> data;
-	if (data == -1) {
-		return NULL;
-	}
-	else {
-		node* root = new node(data);
-		root->left = BuildTree();
-		root->right = BuildTree();
-		return root;
-	}
-}
-
 void preOrder(node* root) {
 	// base case
 	if (root == NULL) {
 		return;
 	}
-
 	// recursive case
-	cout << root->data << " ";
+	cout << root->data << ",";
 	preOrder(root->left);
 	preOrder(root->right);
 }
@@ -40,13 +28,8 @@ void inOrder(node* root) {
 	if (root == NULL) {
 		return;
 	}
-
-	// recursive case
-	// 1. Print left sub tree first
 	inOrder(root->left);
-	// 2. Print the root node
-	cout << root->data << " ";
-	// 3. Print the right sub tree
+	cout << root->data << ",";
 	inOrder(root->right);
 }
 
@@ -55,134 +38,127 @@ void postOrder(node* root) {
 	if (root == NULL) {
 		return;
 	}
-
 	// recursive case
-	//1. Print left
 	postOrder(root->left);
-	//2. Print right
 	postOrder(root->right);
-	//3. Print root node
 	cout << root->data << " ";
 }
 
-int CountNodes(node *root) {
+
+/////////////////////////////// LEVEL ORDER //////////////////////////
+void PrintLevel(node* root) {
+	queue<node*> q;
+	q.push(root);
+	q.push(NULL);
+
+	while (!q.empty()) {
+		node* x = q.front(); // x can be an valid address or NULL
+		q.pop();
+		if ( x == NULL) {
+			cout << endl;
+			if (!q.empty()) {
+				q.push(NULL);
+			}
+		}
+		else {
+			cout << x->data << " ";
+			if (x->left) {
+				q.push(x->left);
+			}
+			if (x->right) {
+				q.push(x->right);
+			}
+		}
+	}
+}
+/////////////////////////////// !LEVEL ORDER //////////////////////////
+
+/////////////////////////////// Create BST //////////////////////////
+node* InsertInBST(node* root, int data) {
 	// base case
 	if (root == NULL) {
-		return 0;
+		root = new node(data);
+		return root;
 	}
 
 	// recursive case
-	return CountNodes(root->left) + CountNodes(root->right) + 1;
-}
-
-int height(node* root) {
-	// base case
-	if (root == NULL) {
-		return 0;
+	if (data <= root->data) {
+		root->left = InsertInBST(root->left, data);
+	}
+	else {
+		root->right = InsertInBST(root->right, data);
 	}
 
-	// recursive case
-	int left_height = height(root->left);
-	int right_height = height(root->right);
-	return max(left_height, right_height) + 1;
+	return root;
 }
 
-int diameter(node* root) {
-	// base case
-	if (root == NULL) {
-		return 0;
+node* BuildTree() {
+	node* root = NULL;
+	int data;
+	cin >> data;
+
+	while (data != -1) {
+		root = InsertInBST(root, data);
+		cin >> data;
 	}
 
-	// 1. Diameter is in left subtree
-	int op1 = diameter(root->left);
-
-	// 2. Diameter is in right subtree
-	int op2 = diameter(root->right);
-
-	// 3. Diameter is via root
-	int op3 = height(root->left) + height(root->right);
-
-	return max(op1, max(op2, op3));
+	return root;
 }
-
-//////////////////////////////// FAST DIAMETER //////////////////
+/////////////////////////////// Create BST //////////////////////////
 class Pair {
 public:
 	int height;
-	int diameter;
+	bool Balanced;
+	Pair() {
+		height = 0;
+		Balanced = true;
+	}
 };
 
-Pair fastDiameter(node* root) {
+Pair isBalanced(node* root) {
 	Pair p;
 	// base case
 	if (root == NULL) {
-		p.height = p.diameter = 0;
 		return p;
 	}
 
 	// recursive case
-	Pair left  = fastDiameter(root->left);
-	Pair right = fastDiameter(root->right);
+	Pair left = isBalanced(root->left);
+	Pair right = isBalanced(root->right);
 
 	p.height = max(left.height, right.height) + 1;
-	int op1 = left.height + right.height;
-	int op2 = left.diameter;
-	int op3 = right.diameter;
-	p.diameter = max(op1, max(op2, op3));
-
+	if (left.Balanced and right.Balanced and (abs(left.height - right.height) <= 1) ) {
+		p.Balanced = true;
+	}
+	else {
+		p.Balanced = false;
+	}
 	return p;
 }
 
-//////////////////////////////// FAST DIAMETER //////////////////
 
-////////////////// FIND SUM OF THE BINARY TREE //////////////////
-int SumOfBT(node* root) {
-	if (!root) {
-		return 0;
-	}
-
-	return SumOfBT(root->left) + SumOfBT(root->right) + root->data;
-}
-////////////////// FIND SUM OF THE BINARY TREE //////////////////
-
-///////////////// MIRROR TREE ///////////////////////////////////
-void mirror(node* root) {
-	// base case
-	if (!root) {
-		return;
-	}
-
-	// recursive case
-	swap(root->left, root->right);
-	mirror(root->left);
-	mirror(root->right);
-}
-///////////////// MIRROR TREE ///////////////////////////////////
 
 int main() {
 
-#ifndef ONLINE_JUDGE
-	freopen("input.txt", "r", stdin);
-	freopen("output.txt", "w", stdout);
-#endif
 
 	node* root = BuildTree();
-	mirror(root);
+
 	preOrder(root);
 	cout << endl;
+
 	inOrder(root);
 	cout << endl;
-	postOrder(root);
-	cout << endl;
-	cout << "Total Node Count: " << CountNodes(root) << endl;
-	cout << "Height: " << height(root) << endl;
-	cout << "Diameter: " << diameter(root) << endl;
 
-	Pair ans = fastDiameter(root);
-	cout << "Fast Height: " << ans.height << endl;
-	cout << "Fast Diameter: " << ans.diameter << endl;
-	cout << "Sum of Tree: " << SumOfBT(root) << endl;
+	PrintLevel(root);
 
+	Pair ans = isBalanced(root);
+	if (ans.Balanced) {
+		cout << "Tree is Balanced" << endl;
+	}
+	else {
+		cout << "Not Balanced Tree" << endl;
+	}
+	cout << "Height " << ans.height << endl;
 	return 0;
 }
 

@@ -99,4 +99,4 @@ int main(){
 	cout<<"fast diameter :"<<ans.diameter<<endl;
 	cout<<SumOfBt(root);
 	return 0;
-}
+} 
