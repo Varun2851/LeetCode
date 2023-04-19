@@ -1,6 +1,9 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+
+//bubble sort
+
 int BubbleSort(int *arr, int n){
 
 	int globalCount = 0;
