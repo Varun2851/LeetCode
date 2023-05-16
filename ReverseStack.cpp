@@ -3,7 +3,7 @@ using namespace std;
 
 void InsertAtBottom(stack<int>&s,int topElement){
 
-	//base case
+	
 	if(s.empty()){
 		s.push(topElement);
 		return;
