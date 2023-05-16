@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int solve(int *arr,int n, int k){
+int Solve(int *arr,int n, int k){
 	int low = arr[0];
 	int high = arr[n-1];
 
@@ -26,7 +26,7 @@ int main(){
 	int n = sizeof(arr)/sizeof(int);
 	int k = 4;
 
-	cout<<solve(arr,n,k);
+	cout<<Solve(arr,n,k);
 
 	return 0;
 }
