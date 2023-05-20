@@ -1,7 +1,7 @@
 class Solution {
 public:
     bool outofOrder(vector<int>& nums,int i){
-        //corner cases
+        
         int x = nums[i];
         if(i == 0){
             return x > nums[i+1];
