@@ -40,7 +40,7 @@
             return -1;
         }
     
-        int ladoos(Node* root, int home, int k) {
+        int ladooS(Node* root, int home, int k) {
             
             ans = 0;
             solve(root, home, k);
