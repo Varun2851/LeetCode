@@ -4,7 +4,7 @@ using namespace std;
 
 //bubble sort
 
-int BubbleSort(int *arr, int n){
+int Bubblesort(int *arr, int n){
 
 	int globalCount = 0;
 
@@ -30,6 +30,6 @@ int main(){
 	int arr[] = {2};
 	int n = sizeof(arr)/sizeof(int);
 
-	cout<<BubbleSort(arr,n);
+	cout<<Bubblesort(arr,n);
 	return 0;
 }
