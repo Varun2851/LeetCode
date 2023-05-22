@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int solve(int *arr,int n, int k){
+int solve1(int *arr,int n, int k){
 	int count = 0;
 	queue<int>q;
 	int sum = 0;
@@ -24,6 +24,6 @@ int main(){
 	int arr[] = {2,5,6};
 	int n = 3;
 	int k = 10;
-	cout<<solve(arr,n,k);
+	cout<<solve1(arr,n,k);
 	return 0;
 }
