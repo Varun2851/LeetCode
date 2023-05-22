@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int solve(int *arr,int n){
+int Solve(int *arr,int n){
 	unordered_map<int,int>mp;
 
 	for(int i = 0; i<n; i++){
@@ -25,6 +25,6 @@ int main(){
 	int arr[] = {1,1,3,4,5,3,3,5,2,2,2};
 	int n = sizeof(arr)/sizeof(int);
 
-	cout<<solve(arr,n);
+	cout<<Solve(arr,n);
 	return 0;
 }
