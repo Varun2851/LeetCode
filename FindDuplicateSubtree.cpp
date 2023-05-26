@@ -1,7 +1,7 @@
 #define node TreeNode
 class Solution {
 public:
-    string solve(node*root,unordered_map<string,int>&mp,vector<node*>&duplicate){
+    string Solve(node*root,unordered_map<string,int>&mp,vector<node*>&duplicate){
         //base case 
         if(!root){
             return "#";
@@ -21,7 +21,7 @@ public:
     vector<TreeNode*> findDuplicateSubtrees(TreeNode* root) {
         unordered_map<string,int>mp;
         vector<node*>duplicate;
-        solve(root,mp,duplicate);
+        Solve(root,mp,duplicate);
         return duplicate;
     }
 };
