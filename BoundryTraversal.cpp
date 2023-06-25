@@ -16,7 +16,6 @@ public:
 	}
 };
 
-// Utility function to create a new tree node
 Node* newNode(int d)
 {
 	
@@ -24,12 +23,6 @@ Node* newNode(int d)
 	n->left = nullptr;
 	n->right = nullptr;
 	return n;
-
-
-	// Node* temp = new Node;
-	// temp->data = data;
-	// temp->left = temp->right = nullptr;
-	// return temp;
 }
 
 // A simple function to print leaf nodes of a binary tree
@@ -55,7 +48,7 @@ void printBoundaryLeft(Node* root)
 		return;
 
 	if (root->left) {
-		cout<<"J";
+		
 		// to ensure top down order, print the node
 		// before calling itself for left subtree
 		cout << root->data << " ";
