@@ -1,6 +1,6 @@
 class Solution {
 public:
-    int peakIndexInMountainArray(vector<int>& arr) {
+    int PeakIndexInMountainArray(vector<int>& arr) {
         int n = arr.size();
         int index = 0;
         
